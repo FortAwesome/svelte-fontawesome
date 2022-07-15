@@ -157,20 +157,20 @@ function capitalize(val) {
 function styleToObject(style) {
   return style
     ? style
-        .split(';')
-        .map((s) => s.trim())
-        .filter((s) => s)
-        .reduce((acc, pair) => {
-          const i = pair.indexOf(':');
-          const prop = camelize(pair.slice(0, i));
-          const value = pair.slice(i + 1).trim();
+      .split(';')
+      .map((s) => s.trim())
+      .filter((s) => s)
+      .reduce((acc, pair) => {
+        const i = pair.indexOf(':');
+        const prop = camelize(pair.slice(0, i));
+        const value = pair.slice(i + 1).trim();
 
-          prop.startsWith('webkit')
-            ? (acc[capitalize(prop)] = value)
-            : (acc[prop] = value);
+        prop.startsWith('webkit')
+          ? (acc[capitalize(prop)] = value)
+          : (acc[prop] = value);
 
-          return acc
-        }, {})
+        return acc
+      }, {})
     : null
 }
 

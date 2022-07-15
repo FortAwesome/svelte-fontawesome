@@ -60,7 +60,7 @@
 
   const classes = objectWithKey('classes', [
     ...classList($$props),
-    ...className.split(' '),
+    ...className.split(' ')
   ])
   const transformObj = objectWithKey(
     'transform',
@@ -75,7 +75,7 @@
     symbol,
     title,
     titleId,
-    maskId,
+    maskId
   })
 
   let result = ''

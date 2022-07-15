@@ -7,7 +7,7 @@ import {
   REFERENCE_ICON_USING_STRING,
   REFERENCE_ICON_BY_STYLE,
   ICON_ALIASES,
-  mount,
+  mount
 } from '../__fixtures__/helpers'
 
 jest.mock('../../logger')
@@ -22,7 +22,7 @@ afterEach(() => {
 
 test('using a FAT icon using array format', () => {
   const vm = mount({
-    icon: ['fat', 'spartan'],
+    icon: ['fat', 'spartan']
   })
 
   expect(vm.type).toBe('svg')
@@ -81,7 +81,7 @@ if (coreHasFeature(REFERENCE_ICON_BY_STYLE)) {
 
 test('using imported object from svg icons package', () => {
   const vm = mount({
-    icon: faTimes,
+    icon: faTimes
   })
 
   expect(vm.type).toBe('svg')
@@ -90,7 +90,7 @@ test('using imported object from svg icons package', () => {
 test('using pack and name', () => {
   const vm = mount({
     icon: ['fas', 'coffee'],
-    style: { backgroundColor: 'white' },
+    style: { backgroundColor: 'white' }
   })
 
   expect(vm.type).toBe('svg')
@@ -237,9 +237,9 @@ test('using size', () => {
     '7x',
     '8x',
     '9x',
-    '10x',
+    '10x'
   ].forEach((size) => {
-    const vm = mount({ icon: faCoffee, size: size })
+    const vm = mount({ icon: faCoffee, size })
 
     expect(vm.props.className.includes(`fa-${size}`)).toBeTruthy()
   })
@@ -367,12 +367,12 @@ describe('using transform', () => {
     const vm = mount({
       icon: faCoffee,
       transform: 'grow-40 left-4 rotate-15',
-      style: { backgroundColor: 'white' },
+      style: { backgroundColor: 'white' }
     })
 
     expect(vm.props.style).toEqual({
       backgroundColor: 'white',
-      transformOrigin: '0.375em 0.5em',
+      transformOrigin: '0.375em 0.5em'
     })
   })
 
@@ -385,8 +385,8 @@ describe('using transform', () => {
         rotate: 15,
         size: 56,
         x: -4,
-        y: 0,
-      },
+        y: 0
+      }
     })
 
     expect(vm.props.style).toEqual({ transformOrigin: '0.375em 0.5em' })
@@ -443,7 +443,7 @@ describe('title', () => {
     const vm = mount({
       icon: faCoffee,
       title: 'Coffee',
-      titleId: 'coffee-title',
+      titleId: 'coffee-title'
     })
 
     expect(vm.props['aria-labelledby']).toBe(
@@ -479,7 +479,7 @@ describe('using ref', () => {
     mount(
       { icon: faCoffee, ref: spy },
       {
-        createNodeMock: () => node,
+        createNodeMock: () => node
       }
     )
 
@@ -494,7 +494,7 @@ describe('using ref', () => {
     mount(
       { icon: faCoffee, ref: setForwardedRef },
       {
-        createNodeMock: () => node,
+        createNodeMock: () => node
       }
     )
 
@@ -505,7 +505,7 @@ describe('using ref', () => {
 describe('using titleId', () => {
   test('setting titleId prop reflects in the aria-labelledby attribute', () => {
     const titleId = 'foo'
-    const vm = mount({ icon: faCoffee, titleId: titleId, title: 'Coffee' })
+    const vm = mount({ icon: faCoffee, titleId, title: 'Coffee' })
     const ariaLabelledby = vm.props['aria-labelledby']
     expect(ariaLabelledby.includes(titleId)).toBeTruthy()
   })

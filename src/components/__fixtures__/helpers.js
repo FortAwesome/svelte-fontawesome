@@ -1,5 +1,4 @@
 import FontAwesomeIcon from '../FontAwesomeIcon'
-import camelize from '../../utils/camelize'
 import { styleToObject } from '../../converter'
 import { cleanup, render, screen } from '@testing-library/svelte'
 import { parse } from '@fortawesome/fontawesome-svg-core'
@@ -44,7 +43,7 @@ function convertToTestResult(component) {
     // Map class to className, so it's easy to copy over any new tests from react-fontawesome
     return {
       ...acc,
-      [matchReactTests(name)]: component.getAttribute(name),
+      [matchReactTests(name)]: component.getAttribute(name)
     }
   }, {})
 
@@ -56,9 +55,9 @@ function convertToTestResult(component) {
     props: attributes,
     children: component.children.length
       ? Array.from(component.children).map((child) =>
-          convertToTestResult(child)
-        )
-      : [component.innerHTML],
+        convertToTestResult(child)
+      )
+      : [component.innerHTML]
   }
 }
 
