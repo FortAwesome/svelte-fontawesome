@@ -9,18 +9,15 @@ jobs:
     strategy:
       matrix:
         node: [14]
-        react: [
-          16.3.x,
-          16.4.x,
-          16.5.x,
-          16.6.x,
-          16.7.x,
-          16.8.x,
-          16.9.x,
-          16.10.x,
-          16.11.x,
-          16.12.x,
-          17.0.x
+        svelte: [
+          3.49.x,
+          3.48.x,
+          3.47.x,
+          3.46.x,
+          3.45.x,
+          3.44.x,
+          3.43.x,
+          3.42.x
         ]
         fontawesome-svg-core: [
           1.2.x,
@@ -40,9 +37,9 @@ jobs:
         run: |
           npm install
           npm run build
-          npm install --no-save react@${{ matrix.react }} react-dom@${{ matrix.react }} react-test-renderer@${{ matrix.react }}
+          npm install --no-save svelte@${{ matrix.svelte }}
           npm install --no-save @fortawesome/fontawesome-svg-core@${{ matrix.fontawesome-svg-core }} @fortawesome/free-solid-svg-icons@${{ matrix.free-solid-svg-icons }}
-          npm list react react-dom react-test-renderer @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons
+          npm list svelte @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons
           npm run lint
           npm run test
       - name: dist
