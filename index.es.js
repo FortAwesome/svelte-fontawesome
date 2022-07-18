@@ -22,15 +22,151 @@ let current_component;
 function set_current_component(component) {
     current_component = component;
 }
-function get_current_component() {
-    if (!current_component)
-        throw new Error('Function called outside component initialization');
-    return current_component;
-}
-function onMount(fn) {
-    get_current_component().$$.on_mount.push(fn);
-}
 Promise.resolve();
+
+// source: https://html.spec.whatwg.org/multipage/indices.html
+const boolean_attributes = new Set([
+    'allowfullscreen',
+    'allowpaymentrequest',
+    'async',
+    'autofocus',
+    'autoplay',
+    'checked',
+    'controls',
+    'default',
+    'defer',
+    'disabled',
+    'formnovalidate',
+    'hidden',
+    'ismap',
+    'loop',
+    'multiple',
+    'muted',
+    'nomodule',
+    'novalidate',
+    'open',
+    'playsinline',
+    'readonly',
+    'required',
+    'reversed',
+    'selected'
+]);
+
+const void_element_names = /^(?:area|base|br|col|command|embed|hr|img|input|keygen|link|meta|param|source|track|wbr)$/;
+function is_void(name) {
+    return void_element_names.test(name) || name.toLowerCase() === '!doctype';
+}
+
+const invalid_attribute_name_character = /[\s'">/=\u{FDD0}-\u{FDEF}\u{FFFE}\u{FFFF}\u{1FFFE}\u{1FFFF}\u{2FFFE}\u{2FFFF}\u{3FFFE}\u{3FFFF}\u{4FFFE}\u{4FFFF}\u{5FFFE}\u{5FFFF}\u{6FFFE}\u{6FFFF}\u{7FFFE}\u{7FFFF}\u{8FFFE}\u{8FFFF}\u{9FFFE}\u{9FFFF}\u{AFFFE}\u{AFFFF}\u{BFFFE}\u{BFFFF}\u{CFFFE}\u{CFFFF}\u{DFFFE}\u{DFFFF}\u{EFFFE}\u{EFFFF}\u{FFFFE}\u{FFFFF}\u{10FFFE}\u{10FFFF}]/u;
+// https://html.spec.whatwg.org/multipage/syntax.html#attributes-2
+// https://infra.spec.whatwg.org/#noncharacter
+function spread(args, attrs_to_add) {
+    const attributes = Object.assign({}, ...args);
+    if (attrs_to_add) {
+        const classes_to_add = attrs_to_add.classes;
+        const styles_to_add = attrs_to_add.styles;
+        if (classes_to_add) {
+            if (attributes.class == null) {
+                attributes.class = classes_to_add;
+            }
+            else {
+                attributes.class += ' ' + classes_to_add;
+            }
+        }
+        if (styles_to_add) {
+            if (attributes.style == null) {
+                attributes.style = style_object_to_string(styles_to_add);
+            }
+            else {
+                attributes.style = style_object_to_string(merge_ssr_styles(attributes.style, styles_to_add));
+            }
+        }
+    }
+    let str = '';
+    Object.keys(attributes).forEach(name => {
+        if (invalid_attribute_name_character.test(name))
+            return;
+        const value = attributes[name];
+        if (value === true)
+            str += ' ' + name;
+        else if (boolean_attributes.has(name.toLowerCase())) {
+            if (value)
+                str += ' ' + name;
+        }
+        else if (value != null) {
+            str += ` ${name}="${value}"`;
+        }
+    });
+    return str;
+}
+function merge_ssr_styles(style_attribute, style_directive) {
+    const style_object = {};
+    for (const individual_style of style_attribute.split(';')) {
+        const colon_index = individual_style.indexOf(':');
+        const name = individual_style.slice(0, colon_index).trim();
+        const value = individual_style.slice(colon_index + 1).trim();
+        if (!name)
+            continue;
+        style_object[name] = value;
+    }
+    for (const name in style_directive) {
+        const value = style_directive[name];
+        if (value) {
+            style_object[name] = value;
+        }
+        else {
+            delete style_object[name];
+        }
+    }
+    return style_object;
+}
+const ATTR_REGEX = /[&"]/g;
+const CONTENT_REGEX = /[&<]/g;
+/**
+ * Note: this method is performance sensitive and has been optimized
+ * https://github.com/sveltejs/svelte/pull/5701
+ */
+function escape(value, is_attr = false) {
+    const str = String(value);
+    const pattern = is_attr ? ATTR_REGEX : CONTENT_REGEX;
+    pattern.lastIndex = 0;
+    let escaped = '';
+    let last = 0;
+    while (pattern.test(str)) {
+        const i = pattern.lastIndex - 1;
+        const ch = str[i];
+        escaped += str.substring(last, i) + (ch === '&' ? '&amp;' : (ch === '"' ? '&quot;' : '&lt;'));
+        last = i + 1;
+    }
+    return escaped + str.substring(last);
+}
+function escape_attribute_value(value) {
+    // keep booleans, null, and undefined for the sake of `spread`
+    const should_escape = typeof value === 'string' || (value && typeof value === 'object');
+    return should_escape ? escape(value, true) : value;
+}
+function escape_object(obj) {
+    const result = {};
+    for (const key in obj) {
+        result[key] = escape_attribute_value(obj[key]);
+    }
+    return result;
+}
+function each(items, fn) {
+    let str = '';
+    for (let i = 0; i < items.length; i += 1) {
+        str += fn(items[i], i);
+    }
+    return str;
+}
+function validate_component(component, name) {
+    if (!component || !component.$$render) {
+        if (name === 'svelte:component')
+            name += ' this={...}';
+        throw new Error(`<${name}> is not a valid SSR component. You may need to review your build config to ensure that dependencies are compiled, rather than imported as pre-compiled modules`);
+    }
+    return component;
+}
 let on_destroy;
 function create_ssr_component(fn) {
     function $$render(result, props, bindings, slots, context) {
@@ -66,6 +202,18 @@ function create_ssr_component(fn) {
         },
         $$render
     };
+}
+function add_attribute(name, value, boolean) {
+    if (value == null || (boolean && !value))
+        return '';
+    const assignment = (boolean && value === true) ? '' : `="${escape(value, true)}"`;
+    return ` ${name}${assignment}`;
+}
+function style_object_to_string(style_object) {
+    return Object.keys(style_object)
+        .filter(key => style_object[key])
+        .map(key => `${key}: ${style_object[key]};`)
+        .join(' ');
 }
 
 // Get CSS class list from a props object
@@ -150,28 +298,16 @@ function camelize(string) {
   return string.substr(0, 1).toLowerCase() + string.substr(1)
 }
 
-function capitalize(val) {
-  return val.charAt(0).toUpperCase() + val.slice(1)
-}
+function styleToString(style) {
+  if (typeof style === 'string') {
+    return style
+  }
 
-function styleToObject(style) {
-  return style
-    ? style
-      .split(';')
-      .map((s) => s.trim())
-      .filter((s) => s)
-      .reduce((acc, pair) => {
-        const i = pair.indexOf(':');
-        const prop = camelize(pair.slice(0, i));
-        const value = pair.slice(i + 1).trim();
+  console.log('DOING IT', style);
 
-        prop.startsWith('webkit')
-          ? (acc[capitalize(prop)] = value)
-          : (acc[prop] = value);
-
-        return acc
-      }, {})
-    : null
+  return Object.keys(style).reduce((acc, key) => (
+    acc + key.split(/(?=[A-Z])/).join('-').toLowerCase() + ':' + style[key] + ';'
+  ), '')
 }
 
 function convert(createElement, element, extraProps = {}) {
@@ -189,7 +325,7 @@ function convert(createElement, element, extraProps = {}) {
       const val = element.attributes[key];
 
       if (key === 'style') {
-        acc.attrs['style'] = styleToObject(val);
+        acc.attrs['style'] = styleToString(val);
       } else {
         if (key.indexOf('aria-') === 0 || key.indexOf('data-') === 0) {
           acc.attrs[key.toLowerCase()] = val;
@@ -203,23 +339,9 @@ function convert(createElement, element, extraProps = {}) {
     { attrs: {} }
   );
 
-  const { style: existingStyle = {}, ...remaining } = extraProps;
-
-  mixins.attrs['style'] = { ...mixins.attrs['style'], ...existingStyle };
-
-  mixins.attrs['style'] = Object.keys(mixins.attrs['style'])
-    .map((key) => {
-      return `${key}: ${mixins.attrs['style'][key]};`
-    })
-    .join(' ');
-
-  if (mixins.attrs['style'] === '') {
-    delete mixins.attrs['style'];
-  }
-
   /* eslint-enable */
 
-  return createElement(element.tag, { ...mixins.attrs, ...remaining }, children)
+  return createElement(element.tag, { ...mixins.attrs }, children)
 }
 
 let PRODUCTION = false;
@@ -282,11 +404,40 @@ function objectWithKey(key, value) {
     : {}
 }
 
+/* src/components/Element.svelte generated by Svelte v3.49.0 */
+
+const Element = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+	let { tag } = $$props;
+	let { props } = $$props;
+	let { children } = $$props;
+	let { style = null } = $$props;
+	let { ref = null } = $$props;
+	const elementStyle = (props?.style) ? `${props.style}${style || ''}` : style;
+	const elementProps = { ...props, style: elementStyle };
+	if ($$props.tag === void 0 && $$bindings.tag && tag !== void 0) $$bindings.tag(tag);
+	if ($$props.props === void 0 && $$bindings.props && props !== void 0) $$bindings.props(props);
+	if ($$props.children === void 0 && $$bindings.children && children !== void 0) $$bindings.children(children);
+	if ($$props.style === void 0 && $$bindings.style && style !== void 0) $$bindings.style(style);
+	if ($$props.ref === void 0 && $$bindings.ref && ref !== void 0) $$bindings.ref(ref);
+
+	return `${(tag$1 => {
+		return tag$1
+		? `<${tag}${spread([escape_object(elementProps)], {})}${add_attribute("this", ref, 0)}>${is_void(tag$1)
+			? ''
+			: `${each(children, child => {
+					return `${child.tag
+					? `${validate_component(Element, "svelte:self").$$render($$result, Object.assign(child), {}, {})}`
+					: `${escape(child)}`}`;
+				})}`}${is_void(tag$1) ? '' : `</${tag$1}>`}`
+		: '';
+	})(tag)}`;
+});
+
 /* src/components/FontAwesomeIcon.svelte generated by Svelte v3.49.0 */
 
 const FontAwesomeIcon = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 	let $$restProps = compute_rest_props($$props, [
-		"border","className","mask","maskId","fixedWidth","inverse","flip","icon","listItem","pull","pulse","rotation","size","spin","spinPulse","spinReverse","beat","fade","beatFade","bounce","shake","symbol","title","titleId","transform","swapOpacity","ref"
+		"border","className","mask","maskId","fixedWidth","inverse","flip","icon","listItem","pull","pulse","rotation","size","spin","spinPulse","spinReverse","beat","fade","beatFade","bounce","shake","symbol","title","titleId","transform","swapOpacity","ref","style"
 	]);
 
 	let { border = false } = $$props;
@@ -316,6 +467,7 @@ const FontAwesomeIcon = create_ssr_component(($$result, $$props, $$bindings, slo
 	let { transform = null } = $$props;
 	let { swapOpacity = false } = $$props;
 	let { ref = null } = $$props;
+	let { style = null } = $$props;
 	const iconLookup = normalizeIconArgs(icon$1);
 	const classes = objectWithKey('classes', [...classList($$props), ...className.split(' ')]);
 
@@ -344,28 +496,12 @@ const FontAwesomeIcon = create_ssr_component(($$result, $$props, $$bindings, slo
 
 		result = convert(
 			(tag, props, children) => {
-				// Generate a string setting key = value for each prop
-				const attributes = Object.keys(props).map(key => {
-					return `${key}="${props[key]}"`;
-				}).join(' ');
-
-				const childContent = children?.reduce(
-					(acc, child) => {
-						return acc + child;
-					},
-					''
-				);
-
-				return `<${tag} ${attributes}>${childContent || ''}</${tag}>`;
+				return { tag, props, children };
 			},
 			abstract[0],
 			$$restProps
 		);
 	}
-
-	onMount(() => {
-		
-	});
 
 	if ($$props.border === void 0 && $$bindings.border && border !== void 0) $$bindings.border(border);
 	if ($$props.className === void 0 && $$bindings.className && className !== void 0) $$bindings.className(className);
@@ -394,7 +530,27 @@ const FontAwesomeIcon = create_ssr_component(($$result, $$props, $$bindings, slo
 	if ($$props.transform === void 0 && $$bindings.transform && transform !== void 0) $$bindings.transform(transform);
 	if ($$props.swapOpacity === void 0 && $$bindings.swapOpacity && swapOpacity !== void 0) $$bindings.swapOpacity(swapOpacity);
 	if ($$props.ref === void 0 && $$bindings.ref && ref !== void 0) $$bindings.ref(ref);
-	return `<!-- HTML_TAG_START -->${result}<!-- HTML_TAG_END -->`;
+	if ($$props.style === void 0 && $$bindings.style && style !== void 0) $$bindings.style(style);
+	let $$settled;
+	let $$rendered;
+
+	do {
+		$$settled = true;
+
+		$$rendered = `${validate_component(Element, "Element").$$render(
+			$$result,
+			Object.assign(result, { style }, { ref }),
+			{
+				ref: $$value => {
+					ref = $$value;
+					$$settled = false;
+				}
+			},
+			{}
+		)}`;
+	} while (!$$settled);
+
+	return $$rendered;
 });
 
 export { FontAwesomeIcon };
