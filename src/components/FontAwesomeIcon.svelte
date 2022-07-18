@@ -1,11 +1,11 @@
 <script>
-  import { onMount } from 'svelte'
   import classList from '../utils/get-class-list-from-props'
   import convert from '../converter'
   import { icon as coreIcon, parse } from '@fortawesome/fontawesome-svg-core'
   import log from '../logger'
   import normalizeIconArgs from '../utils/normalize-icon-args'
   import objectWithKey from '../utils/object-with-key'
+  import Element from './Element.svelte'
 
   // Most of the props are passed via $$props, so not "unused"
   // svelte-ignore unused-export-let
@@ -55,6 +55,7 @@
   // TODO: Implement ref
   // svelte-ignore unused-export-let
   export let ref = null
+  export let style = null
 
   const iconLookup = normalizeIconArgs(icon)
 
@@ -86,25 +87,16 @@
 
     result = convert(
       (tag, props, children) => {
-        // Generate a string setting key = value for each prop
-        const attributes = Object.keys(props)
-          .map((key) => {
-            return `${key}="${props[key]}"`
-          })
-          .join(' ')
-
-        const childContent = children?.reduce((acc, child) => {
-          return acc + child
-        }, '')
-
-        return `<${tag} ${attributes}>${childContent || ''}</${tag}>`
+        return {
+          tag,
+          props,
+          children
+        }
       },
       abstract[0],
       $$restProps
     )
   }
-
-  onMount(() => {})
 
   // TODO: Get types in place
   // FontAwesomeIcon.propTypes = {
@@ -163,4 +155,4 @@
   // }
 </script>
 
-{@html result}
+<Element {...result} {style} bind:ref={ref} />

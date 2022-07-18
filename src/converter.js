@@ -24,6 +24,18 @@ export function styleToObject(style) {
     : null
 }
 
+export function styleToString(style) {
+  if (typeof style === 'string') {
+    return style
+  }
+
+  console.log('DOING IT', style)
+
+  return Object.keys(style).reduce((acc, key) => (
+    acc + key.split(/(?=[A-Z])/).join('-').toLowerCase() + ':' + style[key] + ';'
+  ), '')
+}
+
 function convert(createElement, element, extraProps = {}) {
   if (typeof element === 'string') {
     return element
@@ -39,7 +51,7 @@ function convert(createElement, element, extraProps = {}) {
       const val = element.attributes[key]
 
       if (key === 'style') {
-        acc.attrs['style'] = styleToObject(val)
+        acc.attrs['style'] = styleToString(val)
       } else {
         if (key.indexOf('aria-') === 0 || key.indexOf('data-') === 0) {
           acc.attrs[key.toLowerCase()] = val
@@ -53,23 +65,9 @@ function convert(createElement, element, extraProps = {}) {
     { attrs: {} }
   )
 
-  const { style: existingStyle = {}, ...remaining } = extraProps
-
-  mixins.attrs['style'] = { ...mixins.attrs['style'], ...existingStyle }
-
-  mixins.attrs['style'] = Object.keys(mixins.attrs['style'])
-    .map((key) => {
-      return `${key}: ${mixins.attrs['style'][key]};`
-    })
-    .join(' ')
-
-  if (mixins.attrs['style'] === '') {
-    delete mixins.attrs['style']
-  }
-
   /* eslint-enable */
 
-  return createElement(element.tag, { ...mixins.attrs, ...remaining }, children)
+  return createElement(element.tag, { ...mixins.attrs }, children)
 }
 
 export default convert

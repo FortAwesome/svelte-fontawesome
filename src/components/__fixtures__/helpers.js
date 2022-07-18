@@ -1,5 +1,5 @@
 import FontAwesomeIcon from '../FontAwesomeIcon'
-import { styleToObject } from '../../converter'
+import { styleToObject, styleToString } from '../../converter'
 import { cleanup, render, screen } from '@testing-library/svelte'
 import { parse } from '@fortawesome/fontawesome-svg-core'
 import semver from 'semver'
@@ -51,7 +51,7 @@ function convertToTestResult(component) {
 
   return {
     id: component.id,
-    type: component.nodeName,
+    type: component.nodeName.toLowerCase(),
     props: attributes,
     children: component.children.length
       ? Array.from(component.children).map((child) =>
@@ -63,10 +63,16 @@ function convertToTestResult(component) {
 
 export function mount(props = {}, { createNodeMock } = {}) {
   let result = null
+
+  // Conversion for test values to make it easy to copy over new tests from react-fontawesome
+  if (props.style) {
+    props.style = styleToString(props.style)
+  }
+
   render(FontAwesomeIcon, { props })
-  const component = screen.queryByRole('img', { hidden: true })
-  if (component) {
-    result = convertToTestResult(component)
+  const domComponent = screen.queryByRole('img', { hidden: true })
+  if (domComponent) {
+    result = convertToTestResult(domComponent)
   }
 
   cleanup()
