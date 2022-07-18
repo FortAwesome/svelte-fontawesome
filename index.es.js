@@ -420,7 +420,9 @@ const Element = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 	if ($$props.style === void 0 && $$bindings.style && style !== void 0) $$bindings.style(style);
 	if ($$props.ref === void 0 && $$bindings.ref && ref !== void 0) $$bindings.ref(ref);
 
-	return `${(tag$1 => {
+	return `
+
+${(tag$1 => {
 		return tag$1
 		? `<${tag}${spread([escape_object(elementProps)], {})}${add_attribute("this", ref, 0)}>${is_void(tag$1)
 			? ''
@@ -487,7 +489,7 @@ const FontAwesomeIcon = create_ssr_component(($$result, $$props, $$bindings, slo
 		maskId
 	});
 
-	let result = '';
+	let result = null;
 
 	if (!renderedIcon) {
 		log('Could not find icon', iconLookup);
@@ -537,17 +539,19 @@ const FontAwesomeIcon = create_ssr_component(($$result, $$props, $$bindings, slo
 	do {
 		$$settled = true;
 
-		$$rendered = `${validate_component(Element, "Element").$$render(
-			$$result,
-			Object.assign(result, { style }, { ref }),
-			{
-				ref: $$value => {
-					ref = $$value;
-					$$settled = false;
-				}
-			},
-			{}
-		)}`;
+		$$rendered = `${result
+		? `${validate_component(Element, "Element").$$render(
+				$$result,
+				Object.assign(result, { style }, { ref }),
+				{
+					ref: $$value => {
+						ref = $$value;
+						$$settled = false;
+					}
+				},
+				{}
+			)}`
+		: ``}`;
 	} while (!$$settled);
 
 	return $$rendered;

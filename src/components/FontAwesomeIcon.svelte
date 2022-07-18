@@ -79,7 +79,7 @@
     maskId
   })
 
-  let result = ''
+  let result = null
   if (!renderedIcon) {
     log('Could not find icon', iconLookup)
   } else {
@@ -155,4 +155,6 @@
   // }
 </script>
 
+{#if result}
 <Element {...result} {style} bind:ref={ref} />
+{/if}

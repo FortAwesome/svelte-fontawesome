@@ -9,6 +9,8 @@
   const elementProps = { ...props, style: elementStyle }
 </script>
 
+<svelte:options namespace="svg" />
+
 <svelte:element bind:this={ref} this={tag} {...elementProps}>
   {#each children as child}
     {#if child.tag}

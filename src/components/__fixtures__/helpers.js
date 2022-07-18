@@ -38,7 +38,7 @@ function matchReactTests(name) {
   }
 }
 
-function convertToTestResult(component) {
+function convertToTestResult(component, props) {
   const attributes = component.getAttributeNames().reduce((acc, name) => {
     // Map class to className, so it's easy to copy over any new tests from react-fontawesome
     return {
@@ -49,13 +49,26 @@ function convertToTestResult(component) {
 
   attributes.style = styleToObject(attributes.style)
 
+  let nodeName = component.nodeName.toLowerCase()
+  if (component.nodeName === 'svelte:element') {
+    // temp extreme silliness due to svelte-testing-library issue w/ svelte:options resulting
+    // in svelte:element instead of proper nodeName - grossly inaccurate but works for now
+    if (props?.symbol) {
+      nodeName = 'symbol'
+    } else if (props?.title) {
+      nodeName = 'title'
+    } else {
+      nodeName = 'svg'
+    }
+  }
+
   return {
     id: component.id,
-    type: component.nodeName.toLowerCase(),
+    type: nodeName,
     props: attributes,
     children: component.children.length
       ? Array.from(component.children).map((child) =>
-        convertToTestResult(child)
+        convertToTestResult(child, props)
       )
       : [component.innerHTML]
   }
@@ -72,7 +85,7 @@ export function mount(props = {}, { createNodeMock } = {}) {
   render(FontAwesomeIcon, { props })
   const domComponent = screen.queryByRole('img', { hidden: true })
   if (domComponent) {
-    result = convertToTestResult(domComponent)
+    result = convertToTestResult(domComponent, props)
   }
 
   cleanup()
