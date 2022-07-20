@@ -97,62 +97,6 @@
       $$restProps
     )
   }
-
-  // TODO: Get types in place
-  // FontAwesomeIcon.propTypes = {
-  //   beat: PropTypes.bool,
-  //   border: PropTypes.bool,
-  //   beatFade: PropTypes.bool,
-  //   bounce: PropTypes.bool,
-  //   className: PropTypes.string,
-  //   fade: PropTypes.bool,
-  //   flash: PropTypes.bool,
-  //   mask: PropTypes.oneOfType([
-  //     PropTypes.object,
-  //     PropTypes.array,
-  //     PropTypes.string,
-  //   ]),
-  //   maskId: PropTypes.string,
-  //   fixedWidth: PropTypes.bool,
-  //   inverse: PropTypes.bool,
-  //   flip: PropTypes.oneOf([true, false, 'horizontal', 'vertical', 'both']),
-  //   icon: PropTypes.oneOfType([
-  //     PropTypes.object,
-  //     PropTypes.array,
-  //     PropTypes.string,
-  //   ]),
-  //   listItem: PropTypes.bool,
-  //   pull: PropTypes.oneOf(['right', 'left']),
-  //   pulse: PropTypes.bool,
-  //   rotation: PropTypes.oneOf([0, 90, 180, 270]),
-  //   shake: PropTypes.bool,
-  //   size: PropTypes.oneOf([
-  //     '2xs',
-  //     'xs',
-  //     'sm',
-  //     'lg',
-  //     'xl',
-  //     '2xl',
-  //     '1x',
-  //     '2x',
-  //     '3x',
-  //     '4x',
-  //     '5x',
-  //     '6x',
-  //     '7x',
-  //     '8x',
-  //     '9x',
-  //     '10x',
-  //   ]),
-  //   spin: PropTypes.bool,
-  //   spinPulse: PropTypes.bool,
-  //   spinReverse: PropTypes.bool,
-  //   symbol: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-  //   title: PropTypes.string,
-  //   titleId: PropTypes.string,
-  //   transform: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  //   swapOpacity: PropTypes.bool,
-  // }
 </script>
 
 {#if result}

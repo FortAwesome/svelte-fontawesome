@@ -1,7 +1,9 @@
-/// <reference types="react" />
-import { CSSProperties, SVGAttributes, RefAttributes } from 'react'
+/// <reference types="svelte" />
+import * as CSS from 'csstype';
+import { SvelteComponentTyped } from 'svelte';
 import {
   Transform,
+  IconName,
   IconProp,
   FlipProp,
   SizeProp,
@@ -10,18 +12,15 @@ import {
   FaSymbol
 } from '@fortawesome/fontawesome-svg-core'
 
-export function FontAwesomeIcon(props: FontAwesomeIconProps): JSX.Element
-
-/**
- * @deprecated use FontAwesomeIconProps
- */
-export type Props = FontAwesomeIconProps
+export class FontAwesomeIcon extends SvelteComponentTyped<FontAwesomeIconProps> {}
 
 // This is identical to the version of Omit in Typescript 3.5. It is included for compatibility with older versions of Typescript.
 type BackwardCompatibleOmit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
 
-export interface FontAwesomeIconProps extends BackwardCompatibleOmit<SVGAttributes<SVGSVGElement>, 'children' | 'mask' | 'transform'>, RefAttributes<SVGSVGElement> {
-  icon: IconProp
+type WithPrefix<T extends string> = `fa-${T} fa-${IconName}`
+
+export interface FontAwesomeIconProps {
+  icon: WithPrefix<'solid'> | WithPrefix<'regular'> | WithPrefix<'light'> | WithPrefix<'thin'> | WithPrefix<'duotone'> | WithPrefix<'brands'> | IconProp
   mask?: IconProp
   maskId?: string
   className?: string
@@ -45,7 +44,7 @@ export interface FontAwesomeIconProps extends BackwardCompatibleOmit<SVGAttribut
   rotation?: RotateProp
   transform?: string | Transform
   symbol?: FaSymbol
-  style?: CSSProperties
+  style?: CSS.PropertiesHyphen
   tabIndex?: number;
   title?: string;
   titleId?: string;
