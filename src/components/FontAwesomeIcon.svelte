@@ -10,7 +10,6 @@
   // Most of the props are passed via $$props, so not "unused"
   // svelte-ignore unused-export-let
   export let border = false
-  export let className = ''
   export let mask = null
   export let maskId = null
   // svelte-ignore unused-export-let
@@ -61,7 +60,7 @@
 
   const classes = objectWithKey('classes', [
     ...classList($$props),
-    ...className.split(' ')
+    ...($$props.class || '').split(' ')
   ])
   const transformObj = objectWithKey(
     'transform',

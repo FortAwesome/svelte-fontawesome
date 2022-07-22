@@ -82,6 +82,8 @@ export function mount(props = {}, { createNodeMock } = {}) {
     props.style = styleToString(props.style)
   }
 
+  props.class = props.class || props.className
+
   render(FontAwesomeIcon, { props })
   const domComponent = screen.queryByRole('img', { hidden: true })
   if (domComponent) {

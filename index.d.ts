@@ -23,7 +23,7 @@ export interface FontAwesomeIconProps {
   icon: WithPrefix<'solid'> | WithPrefix<'regular'> | WithPrefix<'light'> | WithPrefix<'thin'> | WithPrefix<'duotone'> | WithPrefix<'brands'> | IconProp
   mask?: IconProp
   maskId?: string
-  className?: string
+  class?: string
   color?: string
   spin?: boolean
   spinPulse?: boolean

@@ -439,11 +439,10 @@ ${(tag$1 => {
 
 const FontAwesomeIcon = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 	let $$restProps = compute_rest_props($$props, [
-		"border","className","mask","maskId","fixedWidth","inverse","flip","icon","listItem","pull","pulse","rotation","size","spin","spinPulse","spinReverse","beat","fade","beatFade","bounce","shake","symbol","title","titleId","transform","swapOpacity","ref","style"
+		"border","mask","maskId","fixedWidth","inverse","flip","icon","listItem","pull","pulse","rotation","size","spin","spinPulse","spinReverse","beat","fade","beatFade","bounce","shake","symbol","title","titleId","transform","swapOpacity","ref","style"
 	]);
 
 	let { border = false } = $$props;
-	let { className = '' } = $$props;
 	let { mask = null } = $$props;
 	let { maskId = null } = $$props;
 	let { fixedWidth = false } = $$props;
@@ -471,7 +470,7 @@ const FontAwesomeIcon = create_ssr_component(($$result, $$props, $$bindings, slo
 	let { ref = null } = $$props;
 	let { style = null } = $$props;
 	const iconLookup = normalizeIconArgs(icon$1);
-	const classes = objectWithKey('classes', [...classList($$props), ...className.split(' ')]);
+	const classes = objectWithKey('classes', [...classList($$props), ...($$props.class || '').split(' ')]);
 
 	const transformObj = objectWithKey('transform', typeof transform === 'string'
 	? parse.transform(transform)
@@ -506,7 +505,6 @@ const FontAwesomeIcon = create_ssr_component(($$result, $$props, $$bindings, slo
 	}
 
 	if ($$props.border === void 0 && $$bindings.border && border !== void 0) $$bindings.border(border);
-	if ($$props.className === void 0 && $$bindings.className && className !== void 0) $$bindings.className(className);
 	if ($$props.mask === void 0 && $$bindings.mask && mask !== void 0) $$bindings.mask(mask);
 	if ($$props.maskId === void 0 && $$bindings.maskId && maskId !== void 0) $$bindings.maskId(maskId);
 	if ($$props.fixedWidth === void 0 && $$bindings.fixedWidth && fixedWidth !== void 0) $$bindings.fixedWidth(fixedWidth);
