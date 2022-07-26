@@ -415,8 +415,6 @@ const SvgElement = create_ssr_component(($$result, $$props, $$bindings, slots) =
 	}
 
 	function generateMarkup({ tag, props, children }) {
-		console.log('tag', tag, 'props', props, 'children', children);
-
 		// Generate a string setting key = value for each prop
 		const attributes = Object.keys(props).map(key => `${key}="${props[key]}"`).join(' ');
 
