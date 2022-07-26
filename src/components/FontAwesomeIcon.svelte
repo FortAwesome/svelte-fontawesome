@@ -5,7 +5,7 @@
   import log from '../logger'
   import normalizeIconArgs from '../utils/normalize-icon-args'
   import objectWithKey from '../utils/object-with-key'
-  import Element from './Element.svelte'
+  import SvgElement from './SvgElement.svelte'
 
   // Most of the props are passed via $$props, so not "unused"
   // svelte-ignore unused-export-let
@@ -99,5 +99,5 @@
 </script>
 
 {#if result}
-<Element {...result} {style} bind:ref={ref} />
+<SvgElement {...result} {style} bind:ref={ref} />
 {/if}
