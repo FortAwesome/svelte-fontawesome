@@ -1,4 +1,4 @@
-# Developing React Fontawesome
+# Developing Svelte Fontawesome
 
 ## Tasks
 

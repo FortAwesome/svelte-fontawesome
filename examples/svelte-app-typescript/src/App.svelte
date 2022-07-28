@@ -25,7 +25,7 @@
   <main class="w-100 min-vh-100 bg-gray8 white sans-serif pa6 flex flex-column justify-center items-center">
     <div class="mw8 center overflow-hidden">
       <h2 class="tc ttu tracked3 b f2 mt0 mb2 teal0 o-30">
-        react-fontawesome (TypeScript edition)
+        svelte-fontawesome (TypeScript edition)
       </h2>
 
       <ul class="list ma0 pa0 flex flex-row flex-wrap teal4">

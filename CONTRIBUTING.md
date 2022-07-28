@@ -1,4 +1,4 @@
-This is the repository for the _official_ Font Awesome React component, _initialized_ by the team behind Font Awesome,
+This is the repository for the _official_ Font Awesome Svelte component, _initialized_ by the team behind Font Awesome,
 but intended to evolve over time with _community_ contributions.
 
 # Ways to Contribute
@@ -31,7 +31,7 @@ Add tests if you add code.
 
 1.  Achieve and maintain feature parity with Font Awesome's [SVG with JavaScript](https://fontawesome.com/how-to-use/svg-with-js) method.
 
-1.  Keep with best practices in the React development community.
+1.  Keep with best practices in the Svelte development community.
 
 1.  Stay current with major developments in Svelte and SvelteKit
 
