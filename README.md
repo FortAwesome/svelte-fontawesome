@@ -7,7 +7,7 @@
 [![npm](https://img.shields.io/npm/v/@fortawesome/react-fontawesome.svg?style=flat-square)](https://www.npmjs.com/package/@seantimm/svelte-fontawesome)
 
 > Font Awesome Svelte component using SVG with JS
-> NOTE: This is sourced from and based *strongly* on react-fontawesome.  I'm hoping I can hand this over to the Font Awesome crew to incorporate as an official release in their repo.  Also, the Examples folder has not been updated with Svelte-equivalent projects, yet.
+> NOTE: This is sourced from and based *strongly* on react-fontawesome.
 
 <!-- toc -->
 
