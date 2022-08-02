@@ -15,7 +15,7 @@ Trying to figure out how to make it work? Or how to use it in your scenario?
 ## Report a Bug
 
 1.  Create a test case that reproduces the unexpected behavior
-1.  [Open a new issue with this template](https://github.com/seantimm/svelte-fontawesome/issues/new?template=bug-report.md),
+1.  [Open a new issue with this template](https://github.com/FortAwesome/svelte-fontawesome/issues/new?template=bug-report.md),
     and be sure to include a link to the reproduction you made with StackBlitz.
 
 ## Submit a Pull Request
@@ -24,8 +24,8 @@ Add tests if you add code.
 
 ## Everything Else
 
-- [Request a feature](https://github.com/seantimm/svelte-fontawesome/issues/new??title=Feature%20request:feature-name&template=feature-request.md)
-- [Request a new icon](https://github.com/seantimm/Font-Awesome/issues/new?title=Icon%20request:%20icon-name&template=icon-request.md)
+- [Request a feature](https://github.com/FortAwesome/svelte-fontawesome/issues/new??title=Feature%20request:feature-name&template=feature-request.md)
+- [Request a new icon](https://github.com/FortAwesome/Font-Awesome/issues/new?title=Icon%20request:%20icon-name&template=icon-request.md)
 
 # Project Goals
 

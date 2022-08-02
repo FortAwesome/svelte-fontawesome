@@ -11,7 +11,7 @@
 	"devDependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
-    "@seantimm/svelte-fontawesome": "github:seantimm/svelte-fontawesome",
+    "@fortawesome/svelte-fontawesome": "^0.2.0",
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/kit": "next",
 		"svelte": "^3.44.0",
