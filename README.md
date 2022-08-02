@@ -23,7 +23,7 @@
 ## Compatibility
 | Svelte version | svelte-fontawesome version |
 | - | - |
-| >= 3.x | 0.20.x |
+| >= 3.x | 0.2.x |
 
 <!-- Official documentation is hosted at fontawesome.com:
 
