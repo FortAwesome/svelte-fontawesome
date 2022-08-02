@@ -27,23 +27,11 @@ export function coreHasFeature(feature) {
   }
 }
 
-function matchReactTests(name) {
-  switch (name) {
-    case 'class':
-      return 'className'
-    case 'clippath':
-      return 'clipPath'
-    default:
-      return name
-  }
-}
-
 function convertToTestResult(component, props) {
   const attributes = component.getAttributeNames().reduce((acc, name) => {
-    // Map class to className, so it's easy to copy over any new tests from react-fontawesome
     return {
       ...acc,
-      [matchReactTests(name)]: component.getAttribute(name)
+      [name]: component.getAttribute(name)
     }
   }, {})
 
