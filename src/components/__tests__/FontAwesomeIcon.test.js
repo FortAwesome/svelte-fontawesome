@@ -26,7 +26,7 @@ test('using a FAT icon using array format', () => {
   })
 
   expect(vm.type).toBe('svg')
-  expect(vm.props.className.includes('fa-spartan')).toBeTruthy()
+  expect(vm.props.class.includes('fa-spartan')).toBeTruthy()
 })
 
 if (coreHasFeature(ICON_ALIASES)) {
@@ -35,7 +35,7 @@ if (coreHasFeature(ICON_ALIASES)) {
     const vm = mount({ icon: ['fas', 'xmark'] })
 
     expect(vm.type).toBe('svg')
-    expect(vm.props.className.includes('fa-xmark')).toBeTruthy()
+    expect(vm.props.class.includes('fa-xmark')).toBeTruthy()
   })
 
   test('find a free-solid-svg-icon that is an alias ', () => {
@@ -43,7 +43,7 @@ if (coreHasFeature(ICON_ALIASES)) {
     const vm = mount({ icon: ['fas', 'close'] })
 
     expect(vm.type).toBe('svg')
-    expect(vm.props.className.includes('fa-xmark')).toBeTruthy()
+    expect(vm.props.class.includes('fa-xmark')).toBeTruthy()
   })
 }
 
@@ -52,14 +52,14 @@ if (coreHasFeature(REFERENCE_ICON_USING_STRING)) {
     const vm = mount({ icon: 'fa-coffee' })
 
     expect(vm.type).toBe('svg')
-    expect(vm.props.className.includes('fa-coffee')).toBeTruthy()
+    expect(vm.props.class.includes('fa-coffee')).toBeTruthy()
   })
 
   test('find an icon using string format with style', () => {
     const vm = mount({ icon: 'fa-solid fa-coffee' })
 
     expect(vm.type).toBe('svg')
-    expect(vm.props.className.includes('fa-coffee')).toBeTruthy()
+    expect(vm.props.class.includes('fa-coffee')).toBeTruthy()
   })
 }
 
@@ -68,14 +68,14 @@ if (coreHasFeature(REFERENCE_ICON_BY_STYLE)) {
     const vm = mount({ icon: ['thin', 'spartan'] })
 
     expect(vm.type).toBe('svg')
-    expect(vm.props.className.includes('fa-spartan')).toBeTruthy()
+    expect(vm.props.class.includes('fa-spartan')).toBeTruthy()
   })
 
   test('find a FA-THIN icon with array format', () => {
     const vm = mount({ icon: ['fa-thin', 'spartan'] })
 
     expect(vm.type).toBe('svg')
-    expect(vm.props.className.includes('fa-spartan')).toBeTruthy()
+    expect(vm.props.class.includes('fa-spartan')).toBeTruthy()
   })
 }
 
@@ -94,7 +94,7 @@ test('using pack and name', () => {
   })
 
   expect(vm.type).toBe('svg')
-  expect(vm.props.className.includes('fa-coffee')).toBeTruthy()
+  expect(vm.props.class.includes('fa-coffee')).toBeTruthy()
   expect(vm.props['aria-hidden']).toBe('true')
   expect(vm.props['data-icon']).toBe('coffee')
   expect(vm.props.style).toEqual({ backgroundColor: 'white' })
@@ -104,7 +104,7 @@ test('using pack common names', () => {
   const vm = mount({ icon: 'coffee' })
 
   expect(vm.type).toBe('svg')
-  expect(vm.props.className.includes('fa-coffee')).toBeTruthy()
+  expect(vm.props.class.includes('fa-coffee')).toBeTruthy()
 })
 
 test('using pack common names not added to library', () => {
@@ -120,103 +120,103 @@ test('using icon', () => {
   const vm = mount({ icon: faCoffee })
 
   expect(vm.type).toBe('svg')
-  expect(vm.props.className.includes('fa-coffee')).toBeTruthy()
+  expect(vm.props.class.includes('fa-coffee')).toBeTruthy()
 })
 
 test('using border', () => {
   const vm = mount({ icon: faCoffee, border: true })
 
-  expect(vm.props.className.includes('fa-border')).toBeTruthy()
+  expect(vm.props.class.includes('fa-border')).toBeTruthy()
 })
 
 test('using fixedWidth', () => {
   const vm = mount({ icon: faCoffee, fixedWidth: true })
 
-  expect(vm.props.className.includes('fa-fw')).toBeTruthy()
+  expect(vm.props.class.includes('fa-fw')).toBeTruthy()
 })
 
 test('using inverse', () => {
   const vm = mount({ icon: faCoffee, inverse: true })
 
-  expect(vm.props.className.includes('fa-inverse')).toBeTruthy()
+  expect(vm.props.class.includes('fa-inverse')).toBeTruthy()
 })
 
 describe('using flip', () => {
   test('horizontal', () => {
     const vm = mount({ icon: faCoffee, flip: 'horizontal' })
 
-    expect(vm.props.className.includes('fa-flip-horizontal')).toBeTruthy()
+    expect(vm.props.class.includes('fa-flip-horizontal')).toBeTruthy()
   })
 
   test('vertical', () => {
     const vm = mount({ icon: faCoffee, flip: 'vertical' })
 
-    expect(vm.props.className.includes('fa-flip-vertical')).toBeTruthy()
+    expect(vm.props.class.includes('fa-flip-vertical')).toBeTruthy()
   })
 
   test('both', () => {
     const vm = mount({ icon: faCoffee, flip: 'both' })
 
-    expect(vm.props.className.includes('fa-flip-horizontal')).toBeTruthy()
-    expect(vm.props.className.includes('fa-flip-vertical')).toBeTruthy()
+    expect(vm.props.class.includes('fa-flip-horizontal')).toBeTruthy()
+    expect(vm.props.class.includes('fa-flip-vertical')).toBeTruthy()
   })
 
   test('animation', () => {
     const vm = mount({ icon: faCoffee, flip: true })
 
-    expect(vm.props.className.includes('fa-flip')).toBeTruthy()
+    expect(vm.props.class.includes('fa-flip')).toBeTruthy()
   })
 })
 
 test('using listItem', () => {
   const vm = mount({ icon: faCoffee, listItem: true })
 
-  expect(vm.props.className.includes('fa-li')).toBeTruthy()
+  expect(vm.props.class.includes('fa-li')).toBeTruthy()
 })
 
 describe('using pull', () => {
   test('right', () => {
     const vm = mount({ icon: faCoffee, pull: 'right' })
 
-    expect(vm.props.className.includes('fa-pull-right')).toBeTruthy()
+    expect(vm.props.class.includes('fa-pull-right')).toBeTruthy()
   })
 
   test('left', () => {
     const vm = mount({ icon: faCoffee, pull: 'left' })
 
-    expect(vm.props.className.includes('fa-pull-left')).toBeTruthy()
+    expect(vm.props.class.includes('fa-pull-left')).toBeTruthy()
   })
 })
 
 test('using pulse', () => {
   const vm = mount({ icon: faCoffee, pulse: true })
 
-  expect(vm.props.className.includes('fa-pulse')).toBeTruthy()
+  expect(vm.props.class.includes('fa-pulse')).toBeTruthy()
 })
 
 describe('using rotation', () => {
   test('0', () => {
     const vm = mount({ icon: faCoffee, rotation: 0 })
 
-    expect(vm.props.className.includes('fa-rotate-')).toBeFalsy()
+    expect(vm.props.class.includes('fa-rotate-')).toBeFalsy()
   })
 
   test('90', () => {
     const vm = mount({ icon: faCoffee, rotation: 90 })
 
-    expect(vm.props.className.includes('fa-rotate-90')).toBeTruthy()
+    expect(vm.props.class.includes('fa-rotate-90')).toBeTruthy()
   })
 
   test('180', () => {
     const vm = mount({ icon: faCoffee, rotation: 180 })
 
-    expect(vm.props.className.includes('fa-rotate-180')).toBeTruthy()
+    expect(vm.props.class.includes('fa-rotate-180')).toBeTruthy()
   })
 
   test('270', () => {
     const vm = mount({ icon: faCoffee, rotation: 270 })
 
-    expect(vm.props.className.includes('fa-rotate-270')).toBeTruthy()
+    expect(vm.props.class.includes('fa-rotate-270')).toBeTruthy()
   })
 })
 
@@ -241,7 +241,7 @@ test('using size', () => {
   ].forEach((size) => {
     const vm = mount({ icon: faCoffee, size })
 
-    expect(vm.props.className.includes(`fa-${size}`)).toBeTruthy()
+    expect(vm.props.class.includes(`fa-${size}`)).toBeTruthy()
   })
 })
 
@@ -249,14 +249,14 @@ describe('using beat', () => {
   test('setting beat prop to true adds fa-beat class', () => {
     const vm = mount({ icon: faCoffee, beat: true })
 
-    expect(vm.props.className.includes('fa-beat')).toBeTruthy()
+    expect(vm.props.class.includes('fa-beat')).toBeTruthy()
   })
 
   test('setting beat prop to false after setting it to true results in no fa-beat class', () => {
     let vm = mount({ icon: faCoffee, beat: true })
-    expect(vm.props.className.includes('fa-beat')).toBeTruthy()
+    expect(vm.props.class.includes('fa-beat')).toBeTruthy()
     vm = mount({ icon: faCoffee, beat: false })
-    expect(vm.props.className.includes('fa-beat')).toBeFalsy()
+    expect(vm.props.class.includes('fa-beat')).toBeFalsy()
   })
 })
 
@@ -264,14 +264,14 @@ describe('using fade', () => {
   test('setting fade prop to true adds fa-fade class', () => {
     const vm = mount({ icon: faCoffee, fade: true })
 
-    expect(vm.props.className.includes('fa-fade')).toBeTruthy()
+    expect(vm.props.class.includes('fa-fade')).toBeTruthy()
   })
 
   test('setting fade prop to false after setting it to true results in no fa-fade class', () => {
     let vm = mount({ icon: faCoffee, fade: true })
-    expect(vm.props.className.includes('fa-fade')).toBeTruthy()
+    expect(vm.props.class.includes('fa-fade')).toBeTruthy()
     vm = mount({ icon: faCoffee, fade: false })
-    expect(vm.props.className.includes('fa-fade')).toBeFalsy()
+    expect(vm.props.class.includes('fa-fade')).toBeFalsy()
   })
 })
 
@@ -279,14 +279,14 @@ describe('using beatFade', () => {
   test('setting beatFade prop to true adds fa-beat-fade class', () => {
     const vm = mount({ icon: faCoffee, beatFade: true })
 
-    expect(vm.props.className.includes('fa-beat-fade')).toBeTruthy()
+    expect(vm.props.class.includes('fa-beat-fade')).toBeTruthy()
   })
 
   test('setting beatFade prop to false after setting it to true results in no fa-beat-fade class', () => {
     let vm = mount({ icon: faCoffee, beatFade: true })
-    expect(vm.props.className.includes('fa-beat-fade')).toBeTruthy()
+    expect(vm.props.class.includes('fa-beat-fade')).toBeTruthy()
     vm = mount({ icon: faCoffee, beatFade: false })
-    expect(vm.props.className.includes('fa-beat-fade')).toBeFalsy()
+    expect(vm.props.class.includes('fa-beat-fade')).toBeFalsy()
   })
 })
 
@@ -294,14 +294,14 @@ describe('using bounce', () => {
   test('setting bounce prop to true adds fa-bounce class', () => {
     const vm = mount({ icon: faCoffee, bounce: true })
 
-    expect(vm.props.className.includes('fa-bounce')).toBeTruthy()
+    expect(vm.props.class.includes('fa-bounce')).toBeTruthy()
   })
 
   test('setting bounce prop to false after setting it to true results in no fa-bounce class', () => {
     let vm = mount({ icon: faCoffee, bounce: true })
-    expect(vm.props.className.includes('fa-bounce')).toBeTruthy()
+    expect(vm.props.class.includes('fa-bounce')).toBeTruthy()
     vm = mount({ icon: faCoffee, bounce: false })
-    expect(vm.props.className.includes('fa-bounce')).toBeFalsy()
+    expect(vm.props.class.includes('fa-bounce')).toBeFalsy()
   })
 })
 
@@ -309,14 +309,14 @@ describe('using shake', () => {
   test('setting shake prop to true adds fa-shake class', () => {
     const vm = mount({ icon: faCoffee, shake: true })
 
-    expect(vm.props.className.includes('fa-shake')).toBeTruthy()
+    expect(vm.props.class.includes('fa-shake')).toBeTruthy()
   })
 
   test('setting shake prop to false after setting it to true results in no fa-shake class', () => {
     let vm = mount({ icon: faCoffee, shake: true })
-    expect(vm.props.className.includes('fa-shake')).toBeTruthy()
+    expect(vm.props.class.includes('fa-shake')).toBeTruthy()
     vm = mount({ icon: faCoffee, shake: false })
-    expect(vm.props.className.includes('fa-shake')).toBeFalsy()
+    expect(vm.props.class.includes('fa-shake')).toBeFalsy()
   })
 })
 
@@ -324,42 +324,42 @@ describe('using spin', () => {
   test('setting spin prop to true adds fa-spin class', () => {
     const vm = mount({ icon: faCoffee, spin: true })
 
-    expect(vm.props.className.includes('fa-spin')).toBeTruthy()
+    expect(vm.props.class.includes('fa-spin')).toBeTruthy()
   })
 
   test('setting spinReverse and spinPulse prop to true adds fa-spin-reverse and fa-spin-pulse class', () => {
     const vm = mount({ icon: faCoffee, spinReverse: true, spinPulse: true })
 
-    expect(vm.props.className.includes('fa-spin-reverse')).toBeTruthy()
-    expect(vm.props.className.includes('fa-spin-pulse')).toBeTruthy()
+    expect(vm.props.class.includes('fa-spin-reverse')).toBeTruthy()
+    expect(vm.props.class.includes('fa-spin-pulse')).toBeTruthy()
   })
 
   test('setting spin prop to false after setting it to true results in no fa-spin class', () => {
     let vm = mount({ icon: faCoffee, spin: true })
-    expect(vm.props.className.includes('fa-spin')).toBeTruthy()
+    expect(vm.props.class.includes('fa-spin')).toBeTruthy()
     vm = mount({ icon: faCoffee, spin: false })
-    expect(vm.props.className.includes('fa-spin')).toBeFalsy()
+    expect(vm.props.class.includes('fa-spin')).toBeFalsy()
   })
 
   test('setting spinPulse prop to false after setting it to true results in no fa-spin-pulse class', () => {
     let vm = mount({ icon: faCoffee, spinPulse: true })
-    expect(vm.props.className.includes('fa-spin-pulse')).toBeTruthy()
+    expect(vm.props.class.includes('fa-spin-pulse')).toBeTruthy()
     vm = mount({ icon: faCoffee, spinPulse: false })
-    expect(vm.props.className.includes('fa-spin-pulse')).toBeFalsy()
+    expect(vm.props.class.includes('fa-spin-pulse')).toBeFalsy()
   })
 
   test('setting spinReverse prop to false after setting it to true results in no fa-spin-reverse class', () => {
     let vm = mount({ icon: faCoffee, spinReverse: true })
-    expect(vm.props.className.includes('fa-spin-reverse')).toBeTruthy()
+    expect(vm.props.class.includes('fa-spin-reverse')).toBeTruthy()
     vm = mount({ icon: faCoffee, spinReverse: false })
-    expect(vm.props.className.includes('fa-spin-reverse')).toBeFalsy()
+    expect(vm.props.class.includes('fa-spin-reverse')).toBeFalsy()
   })
 })
 
-test('using className', () => {
-  const vm = mount({ icon: faCoffee, className: 'highlight' })
+test('using class', () => {
+  const vm = mount({ icon: faCoffee, class: 'highlight' })
 
-  expect(vm.props.className.includes('highlight')).toBeTruthy()
+  expect(vm.props.class.includes('highlight')).toBeTruthy()
 })
 
 describe('using transform', () => {
@@ -398,7 +398,7 @@ describe('mask', () => {
     const vm = mount({ icon: faCoffee, mask: faCircle })
 
     expect(vm.children.length).toBe(2)
-    expect(vm.children[1].props.hasOwnProperty('clipPath')).toBeTruthy() // eslint-disable-line no-prototype-builtins
+    expect(vm.children[1].props.hasOwnProperty('clippath')).toBeTruthy() // eslint-disable-line no-prototype-builtins
   })
 
   test('will use maskId', () => {
@@ -407,7 +407,7 @@ describe('mask', () => {
     expect(vm.children[0].children[0].props.id).toEqual('clip-circle-mask')
     expect(vm.children[0].children[1].props.id).toEqual('mask-circle-mask')
     expect(vm.children[1].props.mask).toEqual('url(#mask-circle-mask)')
-    expect(vm.children[1].props.clipPath).toEqual('url(#clip-circle-mask)')
+    expect(vm.children[1].props.clippath).toEqual('url(#clip-circle-mask)')
   })
 })
 
@@ -459,14 +459,14 @@ describe('swap opacity', () => {
   test('setting swapOpacity prop to true adds fa-swap-opacity class', () => {
     const vm = mount({ icon: faCoffee, swapOpacity: true })
 
-    expect(vm.props.className.includes('fa-swap-opacity')).toBeTruthy()
+    expect(vm.props.class.includes('fa-swap-opacity')).toBeTruthy()
   })
 
   test('setting swapOpacity prop to false after setting it to true results in no fa-swap-opacity class', () => {
     let vm = mount({ icon: faCoffee, swapOpacity: true })
-    expect(vm.props.className.includes('fa-swap-opacity')).toBeTruthy()
+    expect(vm.props.class.includes('fa-swap-opacity')).toBeTruthy()
     vm = mount({ icon: faCoffee, swapOpacity: false })
-    expect(vm.props.className.includes('fa-swap-opacity')).toBeFalsy()
+    expect(vm.props.class.includes('fa-swap-opacity')).toBeFalsy()
   })
 })
 
