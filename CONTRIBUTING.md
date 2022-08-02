@@ -36,7 +36,7 @@ Add tests if you add code.
 1.  Stay current with major developments in Svelte and SvelteKit
 
 1.  Maintain a reasonable level of consistency between this component and the other Font Awesome official JavaScript
-    framework components ([Vue](https://github.com/FortAwesome/vue-fontawesome), [Angular](https://github.com/FortAwesome/angular-fontawesome), [Ember](https://github.com/FortAwesome/ember-fontawesome), [React](https://github.com/FortAwesome/react-fontawesome))
+    framework components.
 
 # Code of Conduct
 
