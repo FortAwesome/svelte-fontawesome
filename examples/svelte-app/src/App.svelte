@@ -1,8 +1,6 @@
 <script>
-  import { FontAwesomeIcon } from '@seantimm/svelte-fontawesome';
-  import {
-  faCoffee
-} from '@fortawesome/free-solid-svg-icons'
+  import { FontAwesomeIcon } from '@fortawesome/svelte-fontawesome';
+  import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 </script>
 
 <div id="app">
