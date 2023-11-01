@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { FontAwesomeIcon } from '@seantimm/svelte-fontawesome';
+  import { FontAwesomeIcon } from '@fortwaesome/svelte-fontawesome';
 
   // Importing types from the API library along with other exports
   import {

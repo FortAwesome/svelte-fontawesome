@@ -1,5 +1,5 @@
 <script>
-  import { FontAwesomeIcon } from '@seantimm/svelte-fontawesome';
+  import { FontAwesomeIcon } from '@fortawesome/svelte-fontawesome';
   import {
   faCoffee
 } from '@fortawesome/free-solid-svg-icons'
