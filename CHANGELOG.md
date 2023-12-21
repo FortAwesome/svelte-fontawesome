@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ---
 
+## [0.2.1](https://github.com/FortAwesome/svelte-fontawesome/releases/tag/0.2.1) - 2023-12-21
+
+### Fixed
+
+- Support Sveltekit 2 by adding exports to package.json #6
+
 ## [0.2.0](https://github.com/FortAwesome/svelte-fontawesome/releases/tag/0.2.0) - 2022-08-02
 
 Special thanks to [@seantimm](https://github.com/seantimm) for putting the work in to port this to Svelte.
