@@ -4,6 +4,11 @@
   "version": "0.2.0",
   "type": "module",
   "svelte": "src/index.js",
+  "exports": {
+    ".": {
+      "svelte": "./src/index.js"
+    }
+  },
   "main": "index.js",
   "module": "index.es.js",
   "jsnext:main": "index.es.js",
