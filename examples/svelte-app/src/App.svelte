@@ -11,12 +11,6 @@
         svelte-fontawesome
       </h2>
 
-      <FontAwesomeIcon
-        icon={['fad', 'stroopwafel']}
-        size="4x"
-        --fa-primary-color='red'
-      />
-
       <ul class="list ma0 pa0 flex flex-row flex-wrap teal4">
         <li class="pv3 ph2 ma0 link grow">
           <FontAwesomeIcon icon={['fab', 'font-awesome']} size="4x" />

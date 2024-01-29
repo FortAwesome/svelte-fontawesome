@@ -37,9 +37,6 @@
           <FontAwesomeIcon icon={coffeeIconDefinition} size="4x" />
         </li>
         <li class="pv3 ph2 ma0 link grow">
-          <FontAwesomeIcon icon={['fad', 'stroopwafel']} size="4x" />
-        </li>
-        <li class="pv3 ph2 ma0 link grow">
           <FontAwesomeIcon
             icon={['fas', 'cog']}
             spin

@@ -12,11 +12,8 @@ import {
   faCheckSquare
 } from '@fortawesome/free-solid-svg-icons'
 
-import { fad } from '@fortawesome/pro-duotone-svg-icons'
-
 library.add(
   fab,
-  fad,
   faCoffee,
   faCog,
   faSpinner,
