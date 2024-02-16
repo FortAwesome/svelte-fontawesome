@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ---
 
+## [0.2.2](https://github.com/FortAwesome/svelte-fontawesome/releases/tag/0.2.2) - 2024-02-16
+
+### Fixed
+
+- Types are not recognized when using TypeScript #8
+
 ## [0.2.1](https://github.com/FortAwesome/svelte-fontawesome/releases/tag/0.2.1) - 2023-12-21
 
 ### Fixed

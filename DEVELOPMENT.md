@@ -24,8 +24,8 @@ The following commands are available through `npm run`
 1. `npm run test`
 1. `npm run install.6`
 1. `npm run test`
-1. `npm publish --tag latest-0.2 --tag latest`
-1. `npm publish --tag latest-0.2 --tag latest --registry https://npm.fontawesome.com` (publish to Pro registry)
+1. `npm publish --tag latest`
+1. `npm publish --tag latest --registry https://npm.fontawesome.com` (publish to Pro registry)
 1. `git add . && git commit -m 'Release VERSION'`
 1. `git push`
 1. Create a [new release](https://github.com/FortAwesome/svelte-fontawesome/releases/new) with `CHANGELOG` details
