@@ -24,7 +24,6 @@ export interface FontAwesomeIconProps {
   mask?: IconProp
   maskId?: string
   class?: string
-  color?: string
   spin?: boolean
   spinPulse?: boolean
   spinReverse?: boolean
