@@ -44,7 +44,7 @@ export interface FontAwesomeIconProps {
   rotation?: RotateProp
   transform?: string | Transform
   symbol?: FaSymbol
-  style?: CSS.PropertiesHyphen
+  style?: CSS.PropertiesHyphen | string
   tabIndex?: number;
   title?: string;
   titleId?: string;
