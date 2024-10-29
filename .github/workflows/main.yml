@@ -1,11 +1,6 @@
 # .github/workflows/release.yml
 name: Build and Release Package
 
-on:
-  push:
-    tags:
-      - "v*.*.*"  # Triggers on version tags like v1.0.0
-
 jobs:
   build-and-release:
     runs-on: ubuntu-latest
