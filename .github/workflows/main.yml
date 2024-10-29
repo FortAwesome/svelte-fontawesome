@@ -1,0 +1,45 @@
+# .github/workflows/release.yml
+name: Build and Release Package
+
+on:
+  push:
+    tags:
+      - "v*.*.*"  # Triggers on version tags like v1.0.0
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"  # Specify your preferred Node.js version
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the package
+        run: npm run build
+
+      - name: Prepare .tar file
+        run: |
+          mkdir release
+          npm pack --pack-destination ./release
+          cd release
+          tar -cvf svelte-fontawesome.tar *.tgz
+
+      - name: Upload release asset
+        uses: actions/upload-release-asset@v1
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          release_id: ${{ github.event.release.id }}
+          asset_path: release/svelte-fontawesome.tar
+          asset_name: svelte-fontawesome.tar
+          asset_content_type: application/x-tar
+
+      - name: Clean up
+        run: rm -rf release
