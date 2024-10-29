@@ -1,40 +1,45 @@
-# .github/workflows/release.yml
-name: Build and Release Package
+name: Build and Release
+
 
 jobs:
-  build-and-release:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
+      - name: Set up Node.js environment
         uses: actions/setup-node@v3
         with:
-          node-version: "16"  # Specify your preferred Node.js version
+          node-version: '16'  # Specify your Node.js version
 
       - name: Install dependencies
         run: npm install
 
       - name: Build the package
-        run: npm run build
+        run: npm run build  # Adjust this command to your build script
 
-      - name: Prepare .tar file
-        run: |
-          mkdir release
-          npm pack --pack-destination ./release
-          cd release
-          tar -cvf svelte-fontawesome.tar *.tgz
+      - name: Create .tar.gz archive
+        run: tar -czvf package.tar.gz ./build  # Adjust the directory as needed
 
-      - name: Upload release asset
-        uses: actions/upload-release-asset@v1
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Provided by GitHub Actions
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          release_id: ${{ github.event.release.id }}
-          asset_path: release/svelte-fontawesome.tar
-          asset_name: svelte-fontawesome.tar
-          asset_content_type: application/x-tar
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
 
-      - name: Clean up
-        run: rm -rf release
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./package.tar.gz
+          asset_name: package.tar.gz
+          asset_content_type: application/gzip
