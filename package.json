@@ -1,7 +1,7 @@
 {
   "name": "@fortawesome/svelte-fontawesome",
   "description": "Svelte component for Font Awesome",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "type": "module",
   "svelte": "src/index.js",
   "exports": {
@@ -24,7 +24,8 @@
     "Sean Timm <github.com/seantimm>",
     "Akiomi Kamakura <github.com/akiomik>",
     "Daniel Senff <github.comm/Dahie>",
-    "Konnng Digital <github.comm/konnng-dev>"
+    "Konnng Digital <github.comm/konnng-dev>",
+    "Martin Blasko <github.comm/MartinBspheroid>"
   ],
   "license": "MIT",
   "scripts": {

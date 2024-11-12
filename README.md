@@ -51,6 +51,7 @@ being awesome contributors to this project. **We'd like to take a moment to reco
 | Akiomi Kamakura   | [@akiomik](https://github.com/akiomik)                     |
 | Daniel Senff      | [@Dahie](https://github.com/Dahie)                         |
 | Konnng Digital    | [@konnng-dev](https://github.com/konnng-dev)               |
+| Martin Blasko     | [@MartinBspheroid](https://github.com/MartinBspheroid)     |
 | Font Awesome Team | [@FortAwesome](https://github.com/orgs/FortAwesome/people) |
 
 If we've missed someone (which is quite likely) submit a Pull Request to us and we'll get it resolved.

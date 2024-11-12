@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ---
 
+## [0.2.3](https://github.com/FortAwesome/svelte-fontawesome/releases/tag/0.2.3) - 2024-11-12
+
+### Fixed
+
+- Color and style props can now be set as epected #11
+
 ## [0.2.2](https://github.com/FortAwesome/svelte-fontawesome/releases/tag/0.2.2) - 2024-02-16
 
 ### Fixed
