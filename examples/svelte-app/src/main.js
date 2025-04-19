@@ -11,6 +11,7 @@ import {
   faSquare,
   faCheckSquare
 } from '@fortawesome/free-solid-svg-icons'
+import { mount } from "svelte";
 
 library.add(
   fab,
@@ -22,7 +23,7 @@ library.add(
   faCheckSquare
 )
 
-const app = new App({
+const app = mount(App, {
   target: document.getElementById('app')
 })
 
