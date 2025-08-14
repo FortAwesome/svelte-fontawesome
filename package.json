@@ -46,7 +46,7 @@
     ]
   },
   "peerDependencies": {
-    "@fortawesome/fontawesome-svg-core": "~1 || ~6",
+    "@fortawesome/fontawesome-svg-core": "~1 || ~6 || ~7",
     "svelte": ">=3.x"
   },
   "devDependencies": {
