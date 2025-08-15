@@ -1,11 +1,30 @@
 {
   "extends": "standard",
-  "plugins": ["svelte3", "jest"],
+  "plugins": ["svelte3"],
   "rules": {
     "space-before-function-paren": 0
   },
   "env": {
-    "jest": true
+    "node": true,
+    "browser": true,
+    "es2022": true
+  },
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "ecmaVersion": 2022,
+    "sourceType": "module",
+    "requireConfigFile": false,
+    "babelOptions": {
+      "presets": ["@babel/preset-env"]
+    }
+  },
+  "globals": {
+    "test": "readonly",
+    "describe": "readonly",
+    "expect": "readonly",
+    "beforeEach": "readonly",
+    "afterEach": "readonly",
+    "vi": "readonly"
   },
   "overrides": [
     {

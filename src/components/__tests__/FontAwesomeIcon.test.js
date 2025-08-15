@@ -1,3 +1,4 @@
+import { vi } from 'vitest'
 import * as fontawesome from '@fortawesome/fontawesome-svg-core'
 import log from '../../logger'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
@@ -7,10 +8,11 @@ import {
   REFERENCE_ICON_USING_STRING,
   REFERENCE_ICON_BY_STYLE,
   ICON_ALIASES,
+  USES_A11Y_TITLE,
   mount
 } from '../__fixtures__/helpers'
 
-jest.mock('../../logger')
+vi.mock('../../logger')
 
 beforeEach(() => {
   fontawesome.library.add(faCoffee, faCircle, faSpartan)
@@ -425,36 +427,6 @@ describe('symbol', () => {
   })
 })
 
-describe('title', () => {
-  test('will not add a title element', () => {
-    const vm = mount({ icon: faCoffee })
-
-    expect(vm.children[0].type).not.toBe('title')
-  })
-
-  test('will add a title element', () => {
-    const vm = mount({ icon: faCoffee, title: 'Coffee' })
-
-    expect(vm.children[0].type).toBe('title')
-    expect(vm.children[0].children[0]).toBe('Coffee')
-  })
-
-  test('will use an explicit titleId', () => {
-    const vm = mount({
-      icon: faCoffee,
-      title: 'Coffee',
-      titleId: 'coffee-title'
-    })
-
-    expect(vm.props['aria-labelledby']).toBe(
-      'svg-inline--fa-title-coffee-title'
-    )
-    expect(vm.children[0].props).toEqual(
-      expect.objectContaining({ id: 'svg-inline--fa-title-coffee-title' })
-    )
-  })
-})
-
 describe('swap opacity', () => {
   test('setting swapOpacity prop to true adds fa-swap-opacity class', () => {
     const vm = mount({ icon: faCoffee, swapOpacity: true })
@@ -470,44 +442,43 @@ describe('swap opacity', () => {
   })
 })
 
-// TODO: Determine proper test here
-xdescribe('using ref', () => {
-  const node = {}
+if (coreHasFeature(USES_A11Y_TITLE)) {
+  describe('title', () => {
+    test('will not add a title element', () => {
+      const vm = mount({ icon: faCoffee })
 
-  test('function', () => {
-    const spy = jest.fn((element) => element)
+      expect(vm.children[0].type).not.toBe('title')
+    })
 
-    mount(
-      { icon: faCoffee, ref: spy },
-      {
-        createNodeMock: () => node
-      }
-    )
+    test('will add a title element', () => {
+      const vm = mount({ icon: faCoffee, title: 'Coffee' })
 
-    expect(spy.mock.calls.length).toBe(1)
-    expect(spy.mock.results[0].value).toBe(node)
+      expect(vm.children[0].type).toBe('title')
+      expect(vm.children[0].children[0]).toBe('Coffee')
+    })
+
+    test('will use an explicit titleId', () => {
+      const vm = mount({
+        icon: faCoffee,
+        title: 'Coffee',
+        titleId: 'coffee-title'
+      })
+
+      expect(vm.props['aria-labelledby']).toBe(
+        'svg-inline--fa-title-coffee-title'
+      )
+      expect(vm.children[0].props).toEqual(
+        expect.objectContaining({ id: 'svg-inline--fa-title-coffee-title' })
+      )
+    })
   })
 
-  test('callback ref', () => {
-    let forwardedRef = null
-    const setForwardedRef = (element) => (forwardedRef = element)
-
-    mount(
-      { icon: faCoffee, ref: setForwardedRef },
-      {
-        createNodeMock: () => node
-      }
-    )
-
-    expect(forwardedRef).toBe(node)
+  describe('using titleId', () => {
+    test('setting titleId prop reflects in the aria-labelledby attribute', () => {
+      const titleId = 'foo'
+      const vm = mount({ icon: faCoffee, titleId, title: 'Coffee' })
+      const ariaLabelledby = vm.props['aria-labelledby']
+      expect(ariaLabelledby.includes(titleId)).toBeTruthy()
+    })
   })
-})
-
-describe('using titleId', () => {
-  test('setting titleId prop reflects in the aria-labelledby attribute', () => {
-    const titleId = 'foo'
-    const vm = mount({ icon: faCoffee, titleId, title: 'Coffee' })
-    const ariaLabelledby = vm.props['aria-labelledby']
-    expect(ariaLabelledby.includes(titleId)).toBeTruthy()
-  })
-})
+}
