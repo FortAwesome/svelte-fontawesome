@@ -20,10 +20,6 @@ The following commands are available through `npm run`
 1. Update the `CHANGELOG.md`
 1. Update the `README.md` contributors section
 1. `npm run build`
-1. `npm run install.5`
-1. `npm run test`
-1. `npm run install.6`
-1. `npm run test`
 1. `npm publish --tag latest`
 1. `npm publish --tag latest --registry https://npm.fontawesome.com` (publish to Pro registry)
 1. `git add . && git commit -m 'Release VERSION'`
