@@ -26,7 +26,6 @@ jobs:
           npm run build
           npm install --no-save svelte@${{ matrix.svelte }}
           npm install --force --no-save @fortawesome/fontawesome-svg-core@${{ matrix.fontawesome.core }} @fortawesome/free-solid-svg-icons@${{ matrix.fontawesome.icons }}
-          npm list svelte @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons
           npm run lint
           npm run test
       - name: dist
