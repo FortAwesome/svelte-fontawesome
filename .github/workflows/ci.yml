@@ -8,14 +8,13 @@ jobs:
 
     strategy:
       matrix:
-        node: [21]
+        node: [22]
         svelte: [
           3.x,
           4.x,
           5.x
         ]
         fontawesome-svg-core: [
-          1.2.x,
           6.x,
           7.x
         ]
