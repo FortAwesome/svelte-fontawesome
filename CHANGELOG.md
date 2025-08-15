@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ---
 
+## [0.2.4](https://github.com/FortAwesome/svelte-fontawesome/releases/tag/0.2.4) - 2025-08-15
+
+### Changed
+
+- Support for Font Awesome 7
+- Added explicit support and testing for Svelte 4 & 5
+
 ## [0.2.3](https://github.com/FortAwesome/svelte-fontawesome/releases/tag/0.2.3) - 2024-11-12
 
 ### Fixed
