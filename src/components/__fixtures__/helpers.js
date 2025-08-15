@@ -4,19 +4,27 @@ import { cleanup, render, screen } from '@testing-library/svelte'
 import { parse } from '@fortawesome/fontawesome-svg-core'
 import semver from 'semver'
 
-import packageJson from '@fortawesome/free-solid-svg-icons/package.json' with { type: 'json' }
+import svgCorePackageJson from '@fortawesome/fontawesome-svg-core/package.json' with { type: 'json' }
+import svgIconsPackageJson from '@fortawesome/free-solid-svg-icons/package.json' with { type: 'json' }
 
-const SVG_ICONS_VERSION = semver.parse(packageJson.version)
+const SVG_CORE_VERSION = semver.parse(svgCorePackageJson.version)
+const SVG_ICONS_VERSION = semver.parse(svgIconsPackageJson.version)
 
 export const REFERENCE_ICON_BY_STYLE = 0x00
 export const ICON_ALIASES = 0x01
 export const REFERENCE_ICON_USING_STRING = 0x02
+export const USES_A11Y_TITLE = 0x03
 
 export function coreHasFeature(feature) {
   if (feature === ICON_ALIASES) {
     // Aliases were not introduced until version 6 so we need to check the
     // installed free-solid-svg-icons package as well.
     return parse.icon && SVG_ICONS_VERSION.major >= 6
+  }
+
+  if (feature === USES_A11Y_TITLE) {
+    // Accessibility changed in version 7 and the title attribute is no longer used
+    return SVG_CORE_VERSION.major < 7
   }
 
   if (

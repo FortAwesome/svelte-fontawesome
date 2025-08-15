@@ -8,6 +8,7 @@ import {
   REFERENCE_ICON_USING_STRING,
   REFERENCE_ICON_BY_STYLE,
   ICON_ALIASES,
+  USES_A11Y_TITLE,
   mount
 } from '../__fixtures__/helpers'
 
@@ -426,36 +427,6 @@ describe('symbol', () => {
   })
 })
 
-describe('title', () => {
-  test('will not add a title element', () => {
-    const vm = mount({ icon: faCoffee })
-
-    expect(vm.children[0].type).not.toBe('title')
-  })
-
-  test('will add a title element', () => {
-    const vm = mount({ icon: faCoffee, title: 'Coffee' })
-
-    expect(vm.children[0].type).toBe('title')
-    expect(vm.children[0].children[0]).toBe('Coffee')
-  })
-
-  test('will use an explicit titleId', () => {
-    const vm = mount({
-      icon: faCoffee,
-      title: 'Coffee',
-      titleId: 'coffee-title'
-    })
-
-    expect(vm.props['aria-labelledby']).toBe(
-      'svg-inline--fa-title-coffee-title'
-    )
-    expect(vm.children[0].props).toEqual(
-      expect.objectContaining({ id: 'svg-inline--fa-title-coffee-title' })
-    )
-  })
-})
-
 describe('swap opacity', () => {
   test('setting swapOpacity prop to true adds fa-swap-opacity class', () => {
     const vm = mount({ icon: faCoffee, swapOpacity: true })
@@ -471,11 +442,43 @@ describe('swap opacity', () => {
   })
 })
 
-describe('using titleId', () => {
-  test('setting titleId prop reflects in the aria-labelledby attribute', () => {
-    const titleId = 'foo'
-    const vm = mount({ icon: faCoffee, titleId, title: 'Coffee' })
-    const ariaLabelledby = vm.props['aria-labelledby']
-    expect(ariaLabelledby.includes(titleId)).toBeTruthy()
+if (coreHasFeature(USES_A11Y_TITLE)) {
+  describe('title', () => {
+    test('will not add a title element', () => {
+      const vm = mount({ icon: faCoffee })
+
+      expect(vm.children[0].type).not.toBe('title')
+    })
+
+    test('will add a title element', () => {
+      const vm = mount({ icon: faCoffee, title: 'Coffee' })
+
+      expect(vm.children[0].type).toBe('title')
+      expect(vm.children[0].children[0]).toBe('Coffee')
+    })
+
+    test('will use an explicit titleId', () => {
+      const vm = mount({
+        icon: faCoffee,
+        title: 'Coffee',
+        titleId: 'coffee-title'
+      })
+
+      expect(vm.props['aria-labelledby']).toBe(
+        'svg-inline--fa-title-coffee-title'
+      )
+      expect(vm.children[0].props).toEqual(
+        expect.objectContaining({ id: 'svg-inline--fa-title-coffee-title' })
+      )
+    })
   })
-})
+
+  describe('using titleId', () => {
+    test('setting titleId prop reflects in the aria-labelledby attribute', () => {
+      const titleId = 'foo'
+      const vm = mount({ icon: faCoffee, titleId, title: 'Coffee' })
+      const ariaLabelledby = vm.props['aria-labelledby']
+      expect(ariaLabelledby.includes(titleId)).toBeTruthy()
+    })
+  })
+}
