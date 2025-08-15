@@ -4,7 +4,7 @@ import { cleanup, render, screen } from '@testing-library/svelte'
 import { parse } from '@fortawesome/fontawesome-svg-core'
 import semver from 'semver'
 
-import packageJson from '@fortawesome/free-solid-svg-icons/package.json' assert { type: 'json' }
+import packageJson from '@fortawesome/free-solid-svg-icons/package.json' with { type: 'json' }
 
 const SVG_ICONS_VERSION = semver.parse(packageJson.version)
 
