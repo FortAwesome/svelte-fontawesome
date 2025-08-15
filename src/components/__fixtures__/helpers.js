@@ -1,12 +1,12 @@
-import FontAwesomeIcon from '../FontAwesomeIcon'
+import FontAwesomeIcon from '../FontAwesomeIcon.svelte'
 import { styleToObject, styleToString } from '../../converter'
 import { cleanup, render, screen } from '@testing-library/svelte'
 import { parse } from '@fortawesome/fontawesome-svg-core'
 import semver from 'semver'
 
-const SVG_ICONS_VERSION = semver.parse(
-  require('@fortawesome/free-solid-svg-icons/package.json').version
-)
+import packageJson from '@fortawesome/free-solid-svg-icons/package.json' assert { type: 'json' }
+
+const SVG_ICONS_VERSION = semver.parse(packageJson.version)
 
 export const REFERENCE_ICON_BY_STYLE = 0x00
 export const ICON_ALIASES = 0x01

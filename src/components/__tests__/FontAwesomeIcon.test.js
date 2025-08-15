@@ -1,3 +1,4 @@
+import { vi } from 'vitest'
 import * as fontawesome from '@fortawesome/fontawesome-svg-core'
 import log from '../../logger'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
@@ -10,7 +11,7 @@ import {
   mount
 } from '../__fixtures__/helpers'
 
-jest.mock('../../logger')
+vi.mock('../../logger')
 
 beforeEach(() => {
   fontawesome.library.add(faCoffee, faCircle, faSpartan)
@@ -467,39 +468,6 @@ describe('swap opacity', () => {
     expect(vm.props.class.includes('fa-swap-opacity')).toBeTruthy()
     vm = mount({ icon: faCoffee, swapOpacity: false })
     expect(vm.props.class.includes('fa-swap-opacity')).toBeFalsy()
-  })
-})
-
-// TODO: Determine proper test here
-xdescribe('using ref', () => {
-  const node = {}
-
-  test('function', () => {
-    const spy = jest.fn((element) => element)
-
-    mount(
-      { icon: faCoffee, ref: spy },
-      {
-        createNodeMock: () => node
-      }
-    )
-
-    expect(spy.mock.calls.length).toBe(1)
-    expect(spy.mock.results[0].value).toBe(node)
-  })
-
-  test('callback ref', () => {
-    let forwardedRef = null
-    const setForwardedRef = (element) => (forwardedRef = element)
-
-    mount(
-      { icon: faCoffee, ref: setForwardedRef },
-      {
-        createNodeMock: () => node
-      }
-    )
-
-    expect(forwardedRef).toBe(node)
   })
 })
 
