@@ -9,20 +9,11 @@ jobs:
     strategy:
       matrix:
         node: [22]
-        svelte: [
-          3.x,
-          4.x,
-          5.x
-        ]
-        fontawesome-svg-core: [
-          6.x,
-          7.x
-        ]
-        free-solid-svg-icons: [
-          5.x,
-          6.x,
-          7.x
-        ]
+        svelte: [3.x, 4.x, 5.x]
+        fontawesome:
+          - { core: 7.x, icons: 5.x }
+          - { core: 6.x, icons: 6.x }
+          - { core: 7.x, icons: 7.x }
 
     steps:
       - uses: actions/checkout@v1
@@ -34,7 +25,7 @@ jobs:
           npm install
           npm run build
           npm install --no-save svelte@${{ matrix.svelte }}
-          npm install --no-save @fortawesome/fontawesome-svg-core@${{ matrix.fontawesome-svg-core }} @fortawesome/free-solid-svg-icons@${{ matrix.free-solid-svg-icons }}
+          npm install --force --no-save @fortawesome/fontawesome-svg-core@${{ matrix.fontawesome.core }} @fortawesome/free-solid-svg-icons@${{ matrix.fontawesome.icons }}
           npm list svelte @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons
           npm run lint
           npm run test
